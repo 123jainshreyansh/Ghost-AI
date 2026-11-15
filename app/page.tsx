@@ -1,11 +1,16 @@
-import { Button } from "@/components/ui/button";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
+
+async function RootRedirect(): Promise<never> {
+  const { userId } = await auth();
+  redirect(userId ? "/editor" : process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL ?? "/sign-in");
+}
 
 export default function Home() {
   return (
-    <div className="flex flex-1 items-center justify-center">
-      <p>Ghost AI</p>
-      <Button>Click Me</Button>
-      </div>
-    
+    <Suspense fallback={null}>
+      <RootRedirect />
+    </Suspense>
   );
 }

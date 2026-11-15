@@ -2,58 +2,52 @@
 
 ## Theme
 
-[Describe the overall visual language — e.g. Dark only.
-No light mode. The design language is a dark technical
-workspace — near-black backgrounds, layered surfaces,
-and vivid accent colors for interactive elements.]
+Dark only. The design language is a focused creative workspace with near-black surfaces, restrained color, and vivid accents for interactive elements. Authentication uses an equal two-panel layout from tablet widths upward, with a vivid purple editorial brand panel beside the dark form panel; small screens prioritize the form.
 
 ## Colors
 
-[Define your color tokens as CSS custom properties.
-All components must use these tokens — no hardcoded
-hex values.]
+Define color tokens as CSS custom properties in `app/globals.css`. Use tokens rather than hardcoded hex values.
 
-| Role            | CSS Variable       | Value    |
-| --------------- | ------------------ | -------- |
-| Page background | `--bg-base`        | `#[hex]` |
-| Surface         | `--bg-surface`     | `#[hex]` |
-| Primary text    | `--text-primary`   | `#[hex]` |
-| Muted text      | `--text-muted`     | `#[hex]` |
-| Primary accent  | `--accent-primary` | `#[hex]` |
-| Border          | `--border-default` | `#[hex]` |
-| Error           | `--state-error`    | `#[hex]` |
-| Success         | `--state-success`  | `#[hex]` |
+| Role | CSS Variable | Value |
+| --- | --- | --- |
+| Page background | `--bg-base` | Near black (`--background`) |
+| Surface | `--bg-surface` | Raised dark surface (`--card`) |
+| Primary text | `--text-primary` | Near white (`--foreground`) |
+| Muted text | `--text-muted` | Soft gray (`--muted-foreground`) |
+| Primary accent | `--accent-primary` | Primary theme color (`--primary`) |
+| Border | `--border-default` | Translucent white (`--border`) |
+| Error | `--state-error` | Destructive theme color |
+| Success | `--state-success` | Green status color |
+| Workspace brand panel | `--brand-panel`, `--brand-panel-deep`, `--brand-accent` | Purple tint and gradient accent for the signed-in editor |
+| Auth panels and accent | `--auth-left`, `--auth-right`, `--auth-card`, `--auth-input`, `--auth-accent` | Charcoal left panel, near-black form panel/card, and turquoise controls |
 
 ## Typography
 
-| Role      | Font              | Variable      |
-| --------- | ----------------- | ------------- |
-| UI text   | [e.g. Geist Sans] | `--font-sans` |
-| Code/mono | [e.g. Geist Mono] | `--font-mono` |
+| Role | Font | Variable |
+| --- | --- | --- |
+| UI text | Geist Sans | `--font-sans` |
+| Code/mono | Geist Mono | `--font-mono` |
 
 ## Border Radius
 
-| Context           | Class            |
-| ----------------- | ---------------- |
-| Inline / small UI | `rounded-[size]` |
-| Cards / panels    | `rounded-[size]` |
-| Modals / overlays | `rounded-[size]` |
+| Context | Class |
+| --- | --- |
+| Inline / small UI | Follow the existing Tailwind radius scale |
+| Cards / panels | Follow the existing Tailwind radius scale |
+| Modals / overlays | Follow the existing Tailwind radius scale |
 
 ## Component Library
 
-[e.g. shadcn/ui on top of Tailwind. Components live
-in components/ui/. Use the CLI to add new components
-rather than writing from scratch.]
+shadcn/ui on top of Tailwind. Components live in `components/ui/`; use the CLI to add components rather than writing generated primitives from scratch.
 
 ## Layout Patterns
 
-- [Pattern — e.g. Editor: full-viewport split with
-  left sidebar, center canvas, right sidebar]
-- [Pattern — e.g. Sidebars: fixed width with border separator]
-- [Pattern — e.g. Modals: centered overlay with backdrop blur]
-- [Pattern — e.g. Navbar: top bar with bottom border]
+- Authentication: full-viewport equal split from tablet widths upward, charcoal product story with turquoise feature icons on the left and a compact centered sign-in card on near black; form-first layout on small screens.
+- Editor: full-viewport 50/50 split with a purple brand panel and dark canvas; the shared navigation sits above it and the project sidebar slides over the canvas.
+- Sidebars: fixed width with a border separator.
+- Modals: centered overlay with backdrop blur.
+- Navbar: top bar with bottom border.
 
 ## Icons
 
-[e.g. Lucide React. Stroke-based icons only. Sizes:
-h-4 w-4 for inline, h-5 w-5 for buttons.]
+Lucide React. Use stroke-based icons, sized `h-4 w-4` inline and `h-5 w-5` in buttons.
