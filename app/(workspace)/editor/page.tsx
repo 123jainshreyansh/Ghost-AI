@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { NewProjectButton } from "@/components/editor/new-project-button"
 
 export default function EditorPage() {
@@ -6,10 +7,10 @@ export default function EditorPage() {
       <section className="brand-panel relative flex min-w-0 flex-col justify-between overflow-hidden p-4 sm:p-7 lg:p-12">
         <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -right-40 size-[28rem] rounded-full border border-white/10" />
         <div aria-hidden="true" className="pointer-events-none absolute -bottom-16 -right-24 size-[18rem] rounded-full border border-white/10" />
-        <a aria-label="Ghost AI home" className="relative flex w-fit items-center gap-2 text-xs font-semibold tracking-wide text-foreground sm:gap-3 sm:text-sm" href="/editor">
+        <Link aria-label="Ghost AI home" className="relative flex w-fit items-center gap-2 text-xs font-semibold tracking-wide text-foreground sm:gap-3 sm:text-sm" href="/editor">
           <span aria-hidden="true" className="grid size-8 place-items-center rounded-lg border border-white/20 bg-white/10 font-bold">G</span>
           GHOST AI
-        </a>
+        </Link>
 
         <div className="relative max-w-lg space-y-4 sm:space-y-6">
           <p className="text-[10px] font-medium text-white/65 sm:text-xs">Your creative workspace</p>

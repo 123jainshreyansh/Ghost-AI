@@ -1,6 +1,21 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "@xyflow/react/dist/style.css";
+@import "@liveblocks/react-ui/styles.css";
+@import "@liveblocks/react-flow/styles.css";
+
+.canvas-node-handle {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 140ms ease;
+}
+
+.react-flow__node:hover .canvas-node-handle,
+.react-flow__node:focus-within .canvas-node-handle {
+    opacity: 1;
+    pointer-events: auto;
+}
 
 @custom-variant dark (&:is(.dark *));
 

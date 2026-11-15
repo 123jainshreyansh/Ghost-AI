@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { usePathname } from "next/navigation"
 
 import { EditorNavbar } from "@/components/editor/editor-navbar"
 import { ProjectDialogs } from "@/components/editor/project-dialogs"
@@ -23,6 +24,7 @@ export function EditorShell({ children, ownedProjects, sharedProjects }: EditorS
 
 function EditorShellContent({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const pathname = usePathname()
   const { projects, openCreate, openRename, openDelete } = useProjectDialogs()
   const ownedProjects = projects.filter((project) => project.access === "owned")
   const sharedProjects = projects.filter((project) => project.access === "shared")
@@ -32,6 +34,8 @@ function EditorShellContent({ children }: { children: React.ReactNode }) {
       <EditorNavbar
         isSidebarOpen={isSidebarOpen}
         onSidebarToggle={() => setIsSidebarOpen((open) => !open)}
+        showStarterTemplates={pathname.startsWith("/editor/")}
+        showUserButton={!pathname.startsWith("/editor/")}
       />
       <main className="relative flex min-h-0 flex-1">{children}</main>
       {isSidebarOpen && (
@@ -50,6 +54,7 @@ function EditorShellContent({ children }: { children: React.ReactNode }) {
         onRenameProject={openRename}
         ownedProjects={ownedProjects}
         sharedProjects={sharedProjects}
+        activeProjectId={pathname.startsWith("/editor/") ? decodeURIComponent(pathname.split("/")[2] ?? "") : undefined}
       />
       <ProjectDialogs />
     </div>

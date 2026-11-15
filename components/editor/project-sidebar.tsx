@@ -1,6 +1,7 @@
 "use client"
 
 import { PanelLeftClose, Pencil, Plus, Trash2 } from "lucide-react"
+import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -14,6 +15,7 @@ type ProjectSidebarProps = {
   onDeleteProject: (project: Project) => void
   ownedProjects: Project[]
   sharedProjects: Project[]
+  activeProjectId?: string
 }
 
 function ProjectList({
@@ -21,7 +23,9 @@ function ProjectList({
   emptyMessage,
   onRenameProject,
   onDeleteProject,
-}: { projects: Project[]; onRenameProject: (project: Project) => void; onDeleteProject: (project: Project) => void; emptyMessage: string }) {
+  activeProjectId,
+  onClose,
+}: { projects: Project[]; onRenameProject: (project: Project) => void; onDeleteProject: (project: Project) => void; emptyMessage: string; activeProjectId?: string; onClose: () => void }) {
   if (projects.length === 0) {
     return <p className="px-2 py-10 text-center text-sm text-muted-foreground">{emptyMessage}</p>
   }
@@ -29,11 +33,16 @@ function ProjectList({
   return (
     <ul className="space-y-1">
       {projects.map((project) => (
-        <li className="group flex min-w-0 items-center gap-1 rounded-lg px-2 py-2 hover:bg-sidebar-accent" key={project.id}>
-          <div className="min-w-0 flex-1">
+        <li className={`group flex min-w-0 items-center gap-1 rounded-lg px-1 py-1 ${activeProjectId === project.id ? "bg-sidebar-accent" : "hover:bg-sidebar-accent"}`} key={project.id}>
+          <Link
+            aria-current={activeProjectId === project.id ? "page" : undefined}
+            className="min-w-0 flex-1 rounded-md px-1 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            href={`/editor/${encodeURIComponent(project.id)}`}
+            onClick={onClose}
+          >
             <p className="truncate text-sm font-medium">{project.name}</p>
             <p className="truncate text-xs text-muted-foreground">{project.slug}</p>
-          </div>
+          </Link>
           {project.access === "owned" && (
             <div className="flex shrink-0 items-center">
               <Button
@@ -70,6 +79,7 @@ export function ProjectSidebar({
   onDeleteProject,
   ownedProjects,
   sharedProjects,
+  activeProjectId,
 }: ProjectSidebarProps) {
   return (
     <aside
@@ -102,6 +112,8 @@ export function ProjectSidebar({
             emptyMessage="Your projects will appear here."
             onDeleteProject={onDeleteProject}
             onRenameProject={onRenameProject}
+            activeProjectId={activeProjectId}
+            onClose={onClose}
             projects={ownedProjects}
           />
         </TabsContent>
@@ -110,6 +122,8 @@ export function ProjectSidebar({
             emptyMessage="Projects shared with you will appear here."
             onDeleteProject={onDeleteProject}
             onRenameProject={onRenameProject}
+            activeProjectId={activeProjectId}
+            onClose={onClose}
             projects={sharedProjects}
           />
         </TabsContent>

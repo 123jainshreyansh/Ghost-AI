@@ -51,7 +51,7 @@ function useProjectDialogState(initialOwnedProjects: Project[], initialSharedPro
       if (action.type === "create") {
         setDialog({ type: "closed" })
         setFormName("")
-        router.push(`/workspace/${encodeURIComponent(id)}`)
+        router.push(`/editor/${encodeURIComponent(id)}`)
         return
       }
       setProjects((current) => current.map((project) => project.id === id ? { ...project, name } : project))
@@ -70,7 +70,7 @@ function useProjectDialogState(initialOwnedProjects: Project[], initialSharedPro
       if (!response.ok) throw new Error("Could not delete the project. Please try again.")
       setProjects((current) => current.filter((project) => project.id !== projectId))
       setDialog({ type: "closed" })
-      if (pathname === `/workspace/${projectId}` || pathname.startsWith(`/workspace/${projectId}/`)) router.replace("/editor")
+      if (pathname === `/editor/${projectId}` || pathname.startsWith(`/editor/${projectId}/`)) router.replace("/editor")
       else router.refresh()
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Something went wrong.")
